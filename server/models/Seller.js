@@ -8,10 +8,12 @@ const collection = 'Seller'
 
 const Seller = new Schema({
   name: String,
-  accesstradeId: String,
   categories: [
     {
-      name: String,
+      category: {
+        type: Schema.ObjectId,
+        ref: 'Category'
+      },
       url: String
     }
   ]
