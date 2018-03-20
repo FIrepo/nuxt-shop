@@ -20,7 +20,7 @@ module.exports = class PostLoginController extends BaseController {
           .then(user => {
             let response = user.resUserData()
             response.token = user.generateTokenUser()
-            this.req.session.authUser = response
+            this.req.session.user = response
             return this.resJSON(response)
           })
       })

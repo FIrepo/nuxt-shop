@@ -49,7 +49,7 @@ const crawler = {
         })
         let current = $('.list-pager .current')
         let nextLink = current.parent().next().children().attr('href')
-        await this.tikiCrawler(nextLink)
+        await crawler.tiki.product(nextLink)
       } else {
         console.log(totalPost + ' has been saved')
       }

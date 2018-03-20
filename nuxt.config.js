@@ -21,7 +21,7 @@ module.exports = {
   ** Add axios globally
   */
   build: {
-    vendor: ['axios'],
+    vendor: ['axios', 'element-ui'],
     /*
     ** Run ESLINT on save
     */
@@ -48,10 +48,12 @@ module.exports = {
   },
   modules: [
     'bootstrap-vue/nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/font-awesome'
   ],
   plugins: [
     {src: '~/plugins/jquery', ssr: false},
-    {src: '~/plugins/bootstrap', ssr: false}
+    {src: '~/plugins/bootstrap', ssr: false},
+    {src: '~plugins/element-ui'}
   ]
 }

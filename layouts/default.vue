@@ -14,7 +14,7 @@ export default {
 }
 </script>
 
-<style>
+<style src="element-ui/lib/theme-chalk/index.css">
 .container
 {
   margin: 0;

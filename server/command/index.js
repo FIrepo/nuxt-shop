@@ -23,4 +23,4 @@
 // program.parse(process.argv)
 
 const crawler = require('../app/utils/crawler')
-crawler.tikiCrawler()
+crawler.tiki.product()
