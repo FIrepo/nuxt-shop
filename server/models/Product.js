@@ -17,8 +17,9 @@ const ProductSchema = new Schema({
     ref: 'Seller'
   },
   originId: String,
-  price: Number,
-  sale_price: Number,
+  price: String,
+  sale_price: String,
+  discount: String,
   imageUrl: String,
   url: String
 }, {

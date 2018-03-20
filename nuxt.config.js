@@ -49,5 +49,9 @@ module.exports = {
   modules: [
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios'
+  ],
+  plugins: [
+    {src: '~/plugins/jquery', ssr: false},
+    {src: '~/plugins/bootstrap', ssr: false}
   ]
 }
