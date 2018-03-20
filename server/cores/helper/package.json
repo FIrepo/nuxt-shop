@@ -1,0 +1,11 @@
+{
+  "name": "core-helper",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
