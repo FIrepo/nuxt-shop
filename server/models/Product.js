@@ -19,12 +19,8 @@ const ProductSchema = new Schema({
   originId: String,
   price: Number,
   sale_price: Number,
-  imageUrls: String,
-  url: String,
-  active: {
-    type: Boolean,
-    default: false
-  }
+  imageUrl: String,
+  url: String
 }, {
   versionKey: false,
   collection: collection
