@@ -1,82 +1,55 @@
-const axios = require('axios')
-const {PostModel, UserModel} = require('core-model')
-const makeDesciption = require('../utils/seo-description')
+const helper = require('core-helper')
 
-const DEFAULT_URL = 'https://www.reddit.com/r/Jokes/top/.json'
-const DEFAULT_TIME = 'day'
-
-const Nightmare = require('nightmare')
-const nightmare = Nightmare()
+const request = require('request-promise')
+const cheerio = require('cheerio')
+const {ProductModel} = require('core-model')
+let totalPost = 0
+let currentPage = 0
 
 const crawler = {
-  totalPost: 0,
-  getRedditData: async function (url = DEFAULT_URL, time = DEFAULT_TIME, after = '') {
-    if (!after) this.totalPost = 0
-    url = url || DEFAULT_URL
-    let crawlUrl = `${url}?t=${time}&after=${after}`
-    console.log('start crawl url = ' + crawlUrl)
-    let user = await UserModel.findOne().sort('createdAt')
-    let response = await axios.get(crawlUrl)
-    let listPosts = response.data.data.children
-    after = response.data.data.after
-    for (let i = 0, length = listPosts.length; i < length; i++) {
-      let post = listPosts[i].data
-      let slug = post.title.slug()
-      if (slug.length > 60) {
-        slug = slug.substring(0, 61)
-        slug = slug.substring(0, slug.lastIndexOf('-'))
+  tikiCrawler: async function (url = 'https://tiki.vn/laptop-may-vi-tinh/c1846?src=mega-menu&order=newest', category, seller, maxPage = 10) {
+    if (++currentPage <= maxPage) {
+      if (url.indexOf('https://tiki.vn') < 0) {
+        url = 'https://tiki.vn' + url
       }
-      let newPost = {
-        title: post.title,
-        content: post.selftext_html,
-        redditId: post.id,
-        slug: slug,
-        description: makeDesciption(post.selftext),
-        tag: ['funny'],
-        userId: user._id
+      category = helper.toObjectId('5ab09312c1cbf629f482bc20')
+      seller = helper.toObjectId('5ab0c8724088242f1892b4eb')
+      let options = {
+        uri: url,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36'
+        },
+        transform: function (body) {
+          return cheerio.load(body)
+        }
       }
 
-      let findPost = await PostModel.findOne({slug: newPost.slug})
-      if (!findPost) {
-        let createdPost = await PostModel.create(newPost)
-        console.log(`Saved post with id = ${createdPost.redditId}.`)
-        this.totalPost++
-      }
-    }
-    if (after) {
-      await this.getRedditData(url, time, after)
-    } else {
-      console.log(this.totalPost + ' new posts has been created.')
-    }
-  },
+      let $ = await request(options)
+      let listProducts = $('.product-box-list .product-item')
 
-  crawl: async function () {
-    // nightmare
-    //   .goto('https://pub.accesstrade.vn/accounts/login')
-    //   .type('#login_name', 'sontungpytn')
-    //   .type('#password', '12345678')
-    //   .click('#form-login button')
-    //   .wait('#js-bootstrap-offcanvas')
-    //   .evaluate(() => document.querySelector('div.header-user div.hidden-xs span').innerHTML)
-    //   .end()
-    //   .then(name => {
-    //     console.log(name)
-    //   })
-    //   .catch(error => {
-    //     console.error('Search failed:', error)
-    //   })
-
-    nightmare
-      .goto('https://duckduckgo.com')
-      .type('#search_form_input_homepage', 'github nightmare')
-      .click('#search_button_homepage')
-      .wait('#r1-0 a.result__a')
-      .evaluate(() => document.querySelector('#r1-0 a.result__a').href)
-      .end()
-      .then(console.log)
-      .catch(error => {
-        console.error('Search failed:', error)
+      await listProducts.each(async function (index) {
+        let item = $(this)
+        if (item.attr('class').indexOf('flash-sale') < 0) {
+          let product = new ProductModel()
+          product.originId = item.attr('data-id')
+          product.name = item.attr('data-title')
+          product.category = category
+          product.seller = seller
+          product.url = item.find('a').attr('href')
+          product.imageUrl = item.find('img').attr('src')
+          product.price = item.find('.price-regular').text()
+          product.discount = item.find('.sale-tag').text()
+          product.sale_price = item.find('.price-sale').children().remove().end().text().trim()
+          await product.save()
+          console.log(++totalPost)
+        }
       })
+      let current = $('.list-pager .current')
+      let nextLink = current.parent().next().children().attr('href')
+      await this.tikiCrawler(nextLink)
+    } else {
+      console.log(totalPost + ' has been saved')
+    }
   }
 }
 
