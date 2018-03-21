@@ -18,7 +18,7 @@
                                     {{product.name.substring(0,46)}}
                                 </a>
                                 <a href="#">
-                                    <span>Product Category</span>
+                                    <span>{{product.category.name}}</span>
                                 </a>
 
                             </h5>
@@ -75,15 +75,6 @@
 
     #prod {
         border-top: 1px solid #DDD;
-    }
-
-    .a-row {
-        display: table;
-        content: "";
-        width: 100%;
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
-        box-shadow: 0 1px 1px 0 #DDD;
     }
 
     .prod-info-main {

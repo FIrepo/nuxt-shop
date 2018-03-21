@@ -6,6 +6,7 @@ export default () => {
     state: {
       user: null,
       listProduct: [],
+      lstCategories: [],
       countProducts: 0
     },
     actions: {
@@ -16,12 +17,16 @@ export default () => {
       },
       async getProducts ({commit}, param) {
         let url = `admin/products?page=${param.page}`
-        console.log('param.page ', param.page)
         const ip = await this.$axios.$get(url)
         commit(types.SET_LIST_PRODUCT, {ip})
       },
       setUser ({commit}, user) {
         commit(types.SET_USER, user)
+      },
+      async getCategories ({commit}) {
+        let url = `admin/categories`
+        const ip = await this.$axios.$get(url)
+        commit(types.SET_LIST_CATEGORY, {ip})
       }
     },
     mutations: {
@@ -31,11 +36,17 @@ export default () => {
       [types.SET_LIST_PRODUCT] (state, payload) {
         state.listProduct = payload.ip.data
         state.countProducts = payload.ip.totalProducts
+      },
+      [types.SET_LIST_CATEGORY] (state, payload) {
+        state.lstCategories = payload.ip.data
       }
     },
     getters: {
       getListProducts: state => {
         return state.listProduct
+      },
+      getListCategories: state => {
+        return state.lstCategories
       },
       getCountProducts: state => {
         return state.countProducts

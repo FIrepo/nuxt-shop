@@ -2,13 +2,13 @@
   <nav aria-label="Page navigation example">
     <ul class="pagination pagination-sm">
       <li class="page-item" v-bind:class="{ 'disabled': hasPrevious}">
-        <nuxt-link class="page-link" :to="`/${currentPage - 1}`">Previous</nuxt-link>
+        <nuxt-link class="page-link" :to="`/${currentPage - 1}`">Quay lại</nuxt-link>
       </li>
       <li class="page-item" v-for="p in totalPage" :key="p" v-bind:class="{ 'active': isCurrent(p)}" v-if="allowRanger(p)">
         <nuxt-link class="page-link" :to="`/${p}`">{{ p }}</nuxt-link>
       </li>
       <li class="page-item" v-bind:class="{ 'disabled': hasNext}">
-        <nuxt-link class="page-link" :to="`/${currentPage + 1}`">Next</nuxt-link>
+        <nuxt-link class="page-link" :to="`/${currentPage + 1}`">Tiếp</nuxt-link>
       </li>
     </ul>
   </nav>
