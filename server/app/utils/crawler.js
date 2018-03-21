@@ -42,7 +42,8 @@ const crawler = {
             product.imageUrl = item.find('img').attr('src')
             product.price = item.find('.price-regular').text()
             product.discount = item.find('.sale-tag').text()
-            product.sale_price = item.find('.price-sale').children().remove().end().text().trim()
+            let salePrice = item.find('.price-sale').children().remove().end().text().trim()
+            product.sale_price = +(salePrice.replace(/\D/g, ''))
             await product.save()
             console.log(++totalPost)
           }

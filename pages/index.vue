@@ -1,20 +1,7 @@
-<template>
-    <product-list></product-list>
-</template>
-
 <script>
-  import ProductList from '../components/ProductList'
+  import createListView from '../components/createListView'
 
-  export default {
-    head () {
-      return {
-        title: 'Danh sách sản phẩm'
-      }
-    },
-    components: {
-      ProductList
-    }
-  }
+  export default createListView()
 </script>
 
 

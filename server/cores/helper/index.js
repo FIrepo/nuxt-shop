@@ -160,6 +160,15 @@ const helpers = {
     let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     for (let i = 0; i < length; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
     return text
+  },
+  format(n, currency) {
+    return n.toFixed().replace(/./g, function(c, i, a) {
+      return i > 0 && c !== '.' && (a.length - i) % 3 === 0 ? '.' + c : c
+    }) + ' ' + currency
+  },
+
+  vndFormat(n) {
+    return this.format(n, '₫')
   }
 }
 

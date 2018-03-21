@@ -10,9 +10,13 @@ export default () => {
       countProducts: 0
     },
     actions: {
-      async nuxtServerInit ({commit, state}, {req, res}) {
+      async nuxtServerInit ({commit, state}, {req, route, redirect}) {
         if (req.session && req.session.user) {
           commit(types.SET_USER, req.session.user)
+        } else {
+          if (route.path === '/admin') {
+            redirect('/admin/login')
+          }
         }
       },
       async getProducts ({commit}, param) {

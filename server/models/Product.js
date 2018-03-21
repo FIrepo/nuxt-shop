@@ -18,7 +18,7 @@ const ProductSchema = new Schema({
   },
   originId: String,
   price: String,
-  sale_price: String,
+  sale_price: Number,
   discount: String,
   imageUrl: String,
   url: String

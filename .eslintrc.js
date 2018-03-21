@@ -12,7 +12,8 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    "prefer-promise-reject-errors": "off"
+    "prefer-promise-reject-errors": "off",
+    "space-before-function-paren": "off"
   },
   globals: {}
 }

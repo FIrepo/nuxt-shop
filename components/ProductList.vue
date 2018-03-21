@@ -4,7 +4,7 @@
         <div class="clear"></div>
         <div class="row">
             <div class="col-md-2 col-sm-12">
-                <el-checkbox v-for="category in $store.state.lstCategories" v-bind:label="category.name"></el-checkbox>
+                <el-checkbox v-for="category in $store.state.lstCategories" v-bind:label="category.name" :key="category._id"></el-checkbox>
             </div>
             <div class="row col-md-10 col-sm-12">
                 <div class="a-row">
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-                <product v-for="product in lstProducts" :key="product.id" :product="product"></product>
+                <product v-for="product in lstProducts" :key="product._id" :product="product"></product>
                 <div class="d-block text-right mt-2 col-md-12">
                     <pagination :currentPage="displayedPage" :totalPost="totalProduct" :count="20"></pagination>
                 </div>

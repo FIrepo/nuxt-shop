@@ -1,5 +1,6 @@
 const BaseController = require('core-controller')
 const {ProductModel} = require('core-model')
+const helper = require('core-helper')
 
 module.exports = class GetListProductsController extends BaseController {
   getResponse () {
@@ -22,7 +23,11 @@ module.exports = class GetListProductsController extends BaseController {
         return query.exec()
       })
       .then(products => {
-        return this.resJSON(products, {totalProducts: count})
+        let listProducts = JSON.parse(JSON.stringify(products))
+        listProducts.forEach(product => {
+          product.sale_price = helper.vndFormat(product.sale_price)
+        })
+        return this.resJSON(listProducts, {totalProducts: count})
       })
       .catch(error => this.responseError(error))
   }
