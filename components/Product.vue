@@ -1,70 +1,59 @@
 <template>
-    <div class="row">
-        <div class="clear"></div>
-        <div class="col-md-12 a-row">
-            1-20 of <strong>{{total}}</strong> products
-        </div>
-        <div class="col-md-2 col-sm-12">
-            Left
-        </div>
-        <div class="row col-md-10 col-sm-12">
-            <div id="prod" class="col-md-6 col-sm-12">
-                <!-- First product box start here-->
-                <div class="prod-info-main prod-wrap clearfix">
-                    <div class="row">
-                        <div class="col-md-5 col-sm-12 col-xs-12">
-                            <div class="product-image">
-                                <img v-bind:src="product.imageUrl" class="img-responsive">
-                                <span v-if="product.discount!==''" class="tag2 hot">SALE</span>
-                                <span v-bind:class="[product.seller.name.toLowerCase()]"
-                                      class="tag3">{{product.seller.name}}</span>
-                            </div>
+        <div id="prod" class="col-md-6 col-sm-12">
+            <!-- First product box start here-->
+            <div class="prod-info-main prod-wrap clearfix">
+                <div class="row">
+                    <div class="col-md-5 col-sm-12 col-xs-12">
+                        <div class="product-image">
+                            <img v-bind:src="product.imageUrl" class="img-responsive">
+                            <span v-if="product.discount!==''" class="tag2 hot">SALE</span>
+                            <span v-bind:class="[product.seller.name.toLowerCase()]"
+                                  class="tag3">{{product.seller.name}}</span>
                         </div>
-                        <div class="col-md-7 col-sm-12 col-xs-12">
-                            <div class="product-detail">
-                                <h5 class="name">
-                                    <a v-bind:href="product.url" target="_blank" v-bind:title="product.name">
-                                        {{product.name.substring(0,46)}}
-                                    </a>
-                                    <a href="#">
-                                        <span>Product Category</span>
-                                    </a>
+                    </div>
+                    <div class="col-md-7 col-sm-12 col-xs-12">
+                        <div class="product-detail">
+                            <h5 class="name">
+                                <a v-bind:href="product.url" target="_blank" v-bind:title="product.name">
+                                    {{product.name.substring(0,46)}}
+                                </a>
+                                <a href="#">
+                                    <span>Product Category</span>
+                                </a>
 
-                                </h5>
-                                <p class="price-container">
-                                    <span>{{product.sale_price}}</span>
-                                </p>
-                                <span class="tag1"></span>
-                                <span class="sale">{{product.price}}</span>&nbsp;
-                                <span class="discount">{{product.discount}}</span>
-                            </div>
-                            <div class="clear">
+                            </h5>
+                            <p class="price-container">
+                                <span>{{product.sale_price}}</span>
+                            </p>
+                            <span class="tag1"></span>
+                            <span class="sale">{{product.price}}</span>&nbsp;
+                            <span class="discount">{{product.discount}}</span>
+                        </div>
+                        <div class="clear">
 
-                            </div>
-                            <div class="product-info smart-form">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a v-bind:href="product.url" class="btn btn-danger">
-                                            <span><i class="fa fa-shopping-cart"></i> MUA NGAY</span></a>
-                                    </div>
-                                    <!--<div class="col-md-12">
-                                        <div class="rating">Rating:
-                                            <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
-                                            <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
-                                            <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
-                                            <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
-                                            <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
-                                        </div>
-                                    </div>-->
+                        </div>
+                        <div class="product-info smart-form">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a v-bind:href="product.url" class="btn btn-danger">
+                                        <span><i class="fa fa-shopping-cart"></i> MUA NGAY</span></a>
                                 </div>
+                                <!--<div class="col-md-12">
+                                    <div class="rating">Rating:
+                                        <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
+                                        <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
+                                        <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
+                                        <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
+                                        <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
+                                    </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- end product -->
         </div>
-    </div>
+        <!-- end product -->
 </template>
 
 <script>

@@ -1,6 +1,4 @@
-import ItemList from './PostList.vue'
-
-const camelize = str => str.charAt(0).toUpperCase() + str.slice(1)
+import ItemList from './ProductList.vue'
 
 // This is a factory function for dynamically creating root-level list views,
 // since they share most of the logic except for the type of items to display.
@@ -12,14 +10,8 @@ export default function createListView () {
     },
 
     head () {
-      if (typeof this.$route.params.name === 'undefined') {
-        return {
-          title: camelize(type) + ' | 9Laugh.com'
-        }
-      } else {
-        return {
-          title: camelize(this.$route.params.name) + ' | 9Laugh.com'
-        }
+      return {
+        title: 'Danh sách sản phẩm'
       }
     },
 
