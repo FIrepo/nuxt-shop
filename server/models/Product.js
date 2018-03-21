@@ -26,5 +26,6 @@ const ProductSchema = new Schema({
   versionKey: false,
   collection: collection
 })
+ProductSchema.index({'$**': 'text'})
 
 module.exports = mongoose.model(collection, ProductSchema)

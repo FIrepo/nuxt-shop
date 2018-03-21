@@ -3,7 +3,7 @@
     Visit our website for more documentation : <a href="https://nuxtjs.org" target="_blank">nuxtjs.org</a>
     <script type="text/javascript">
       var __atsmarttag = {  /* eslint-disable-line */
-        pub_id: '4819704037953986638'
+        pub_id: '4681436469835309956'
       };
       (function () {
         var script = document.createElement('script')

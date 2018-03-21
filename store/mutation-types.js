@@ -1,3 +1,6 @@
 /* eslint-disable */
-export const SET_USER = 'SET_USER';
-export const SET_TOKEN = 'SET_TOKEN';
+module.exports = {
+  SET_USER: 'SET_USER',
+  SET_TOKEN: 'SET_TOKEN',
+  SET_LIST_PRODUCT: 'SET_LIST'
+}
