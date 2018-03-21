@@ -16,7 +16,10 @@ export default () => {
         }
       },
       async getProducts ({commit}, param) {
-        let url = `admin/products?page=${param.page}`
+        let url = `admin/products?page=${param.page || 1}`
+        if (param.search) {
+          url += `&search=${param.search}`
+        }
         const ip = await this.$axios.$get(url)
         commit(types.SET_LIST_PRODUCT, {ip})
       },
@@ -26,6 +29,7 @@ export default () => {
       async getCategories ({commit}) {
         let url = `admin/categories`
         const ip = await this.$axios.$get(url)
+        console.log('categories ', ip)
         commit(types.SET_LIST_CATEGORY, {ip})
       }
     },
