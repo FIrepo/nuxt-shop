@@ -56,7 +56,7 @@ export default () => {
         state.lstCategories = payload.ip.data
       },
       [types.SET_LIST_SELLER](state, payload) {
-        state.lstCategories = payload
+        state.sellers = payload
       }
     },
     getters: {

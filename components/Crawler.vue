@@ -25,6 +25,7 @@
     async beforeCreate() {
       let response = await this.$axios.get('admin/sellers')
       response = response.data
+      console.log(response)
       if (response.messageCode === 'success') {
         let sellers = response.data
         this.$store.dispatch('setSellers', sellers)
