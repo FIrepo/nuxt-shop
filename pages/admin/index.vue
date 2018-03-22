@@ -4,33 +4,34 @@
             <el-menu
                     default-active="1"
                     class="el-menu-vertical-demo"
-                    @open="handleOpen"
-                    @close="handleClose"
                     background-color="#545c64"
                     text-color="#fff"
                     active-text-color="#ffd04b">
-                <el-menu-item index="1">
+                <el-menu-item index="1" @click="chooseMenu(1)">
                     <i class="el-icon-menu"></i>
-                    <span>Navigator One</span>
+                    <span>Products</span>
                 </el-menu-item>
-                <el-menu-item index="2">
+                <el-menu-item index="2" @click="chooseMenu(2)">
                     <i class="el-icon-setting"></i>
-                    <span>Navigator Two</span>
+                    <span>Crawler</span>
                 </el-menu-item>
             </el-menu>
         </div>
         <div class="col-md-10 col-xs-12">
-            <product-table></product-table>
+            <product-table v-if="menuIndex == 1"></product-table>
+            <crawler v-if="menuIndex == 2"></crawler>
         </div>
     </div>
 </template>
 
 <script>
   import ProductTable from '~/components/ProductTable.vue'
+  import Crawler from '~/components/Crawler.vue'
 
   export default {
     components: {
-      ProductTable
+      ProductTable,
+      Crawler
     },
     name: 'admin',
     head() {
@@ -44,18 +45,14 @@
       }
     },
     methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath)
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath)
-      },
-      handleClick() {
-        console.log('click')
+      chooseMenu(index) {
+        this.menuIndex = index
       }
     },
     data() {
-      return {}
+      return {
+        menuIndex: 1
+      }
     }
   }
 </script>

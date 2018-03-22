@@ -1,9 +1,30 @@
 <template>
     <div>
+        <div class="search-group row">
+            <div class="col-md-2">
+                <h5 class="text-muted">{{total}} results</h5>
+            </div>
+            <div class="col-md-10 input-search row">
+                <div class="col-md-9">
+                    <el-input
+                            placeholder="Search products"
+                            v-model="search"
+                            class="pull-right"
+                            clearable>
+                    </el-input>
+                </div>
+                <div class="col-md-3">
+                    <el-button type="primary" round @click="searchProducts">Search</el-button>
+                </div>
+            </div>
+        </div>
         <el-table
+                border
                 :data="listProducts"
-                style="width: 100%">
+                style="width: 100%"
+                max-height="700">
             <el-table-column
+                    sortable
                     fixed
                     prop="name"
                     label="Name"
@@ -18,10 +39,12 @@
                     label="Seller">
             </el-table-column>
             <el-table-column
+                    sortable
                     prop="sale_price"
                     label="Sale Price">
             </el-table-column>
             <el-table-column
+                    sortable
                     prop="price"
                     label="Regular Price">
             </el-table-column>
@@ -30,8 +53,8 @@
                     fixed="right"
                     label="Operations">
                 <template slot-scope="scope">
-                    <el-button @click="edit(scope.$index, listProducts)" type="text" size="small">Edit</el-button>
-                    <el-button @click="remove(scope.$index, listProducts)" type="text" size="small">Remove</el-button>
+                    <el-button @click="edit(scope.$index, listProducts)" size="small">Edit</el-button>
+                    <el-button @click="remove(scope.$index, listProducts)" type="danger" size="small">Remove</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -90,11 +113,15 @@
       handleCurrentChange(page) {
         this.page = page
         this.$store.dispatch('getProducts', {page: page})
+      },
+      searchProducts () {
+        this.$store.dispatch('getProducts', {search: this.search})
       }
     },
     data() {
       return {
-        page: 1
+        page: 1,
+        search: ''
       }
     },
 
@@ -116,5 +143,14 @@
 <style scoped>
     .paging {
         text-align: center;
+    }
+    .search-group {
+        margin: auto;
+        padding: 10px;
+        justify-content: space-between;
+    }
+    .input-search{
+        max-width: 600px;
+
     }
 </style>

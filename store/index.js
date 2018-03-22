@@ -7,10 +7,11 @@ export default () => {
       user: null,
       listProduct: [],
       lstCategories: [],
-      countProducts: 0
+      countProducts: 0,
+      sellers: []
     },
     actions: {
-      async nuxtServerInit ({commit, state}, {req, route, redirect}) {
+      async nuxtServerInit({commit, state}, {req, route, redirect}) {
         if (req.session && req.session.user) {
           commit(types.SET_USER, req.session.user)
         } else {
@@ -19,7 +20,7 @@ export default () => {
           }
         }
       },
-      async getProducts ({commit}, param) {
+      async getProducts({commit}, param) {
         let url = `admin/products?page=${param.page || 1}`
         if (param.search) {
           url += `&search=${param.search}`
@@ -30,10 +31,13 @@ export default () => {
         const ip = await this.$axios.$get(url)
         commit(types.SET_LIST_PRODUCT, {ip})
       },
-      setUser ({commit}, user) {
+      setUser({commit}, user) {
         commit(types.SET_USER, user)
       },
-      async getCategories ({commit}) {
+      setSellers({commit}, sellers) {
+        commit(types.SET_LIST_SELLER, sellers)
+      },
+      async getCategories({commit}) {
         let url = `admin/categories`
         const ip = await this.$axios.$get(url)
         console.log('categories ', ip)
@@ -41,15 +45,18 @@ export default () => {
       }
     },
     mutations: {
-      [types.SET_USER] (state, payload) {
+      [types.SET_USER](state, payload) {
         state.user = payload
       },
-      [types.SET_LIST_PRODUCT] (state, payload) {
+      [types.SET_LIST_PRODUCT](state, payload) {
         state.listProduct = payload.ip.data
         state.countProducts = payload.ip.totalProducts
       },
-      [types.SET_LIST_CATEGORY] (state, payload) {
+      [types.SET_LIST_CATEGORY](state, payload) {
         state.lstCategories = payload.ip.data
+      },
+      [types.SET_LIST_SELLER](state, payload) {
+        state.lstCategories = payload
       }
     },
     getters: {
