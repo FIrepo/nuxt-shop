@@ -7,9 +7,11 @@
                 <div>
                     <h5>Danh mục</h5>
                     <el-menu default-active="1"
-                            class="el-menu-vertical-demo">
-                        <el-menu-item v-for="category in $store.state.lstCategories" @click="cateChange(category._id)" index="1">
-                        <i class="el-icon-menu"></i>
+                             class="el-menu-vertical-demo">
+                        <el-menu-item v-for="category in $store.state.lstCategories" :key="category._id"
+                                      v-model="cateId"
+                                      @click="cateChange(category._id)" index="1">
+                            <i class="el-icon-menu"></i>
                             <span>{{category.name}}</span>
                         </el-menu-item>
                     </el-menu>
@@ -41,7 +43,8 @@
                     </div>
                 </div>
                 <product v-for="product in lstProducts" :key="product._id" :product="product"></product>
-                <!--<div class="paging">-->
+                <div class="d-block text-right mt-2 col-md-12">
+                    <pagination :currentPage="displayedPage" :totalPost="totalProduct" :count="20"></pagination>
                     <!--<el-pagination-->
                             <!--background-->
                             <!--layout="prev, pager, next"-->
@@ -50,9 +53,6 @@
                             <!--@current-change="handleCurrentChange"-->
                             <!--:total="total">-->
                     <!--</el-pagination>-->
-                <!--</div>-->
-                <div class="d-block text-right mt-2 col-md-12">
-                    <pagination :currentPage="displayedPage" :totalPost="totalProduct" :count="20"></pagination>
                 </div>
             </div>
         </div>
@@ -72,6 +72,7 @@
     data () {
       return {
         search: '',
+        cateId: '',
         displayedPage: Number(this.$route.params.page) || 1,
         value9: [0, 0]
       }
@@ -97,9 +98,11 @@
       async cateChange (cateId) {
         return this.$store.dispatch('getProducts', {category: cateId})
       },
-      async handleCurrentChange (page) {
+      async handleCurrentChange (page, search, cateId) {
         this.page = page
-        this.$store.dispatch('getProducts', {page: page})
+        this.search = search
+        this.cateId = cateId
+        this.$store.dispatch('getProducts', {page: page, search: search, category: cateId})
       }
     }
   }
