@@ -4,7 +4,27 @@
         <div class="clear"></div>
         <div class="row">
             <div class="col-md-2 col-sm-12">
-                <el-checkbox v-for="category in $store.state.lstCategories" v-bind:label="category.name" :key="category._id"></el-checkbox>
+                <div>
+                    <h5>Danh mục</h5>
+                    <el-menu default-active="1"
+                            class="el-menu-vertical-demo">
+                        <el-menu-item v-for="category in $store.state.lstCategories" @click="cateChange(category._id)" index="1">
+                        <i class="el-icon-menu"></i>
+                            <span>{{category.name}}</span>
+                        </el-menu-item>
+                    </el-menu>
+                    <!--check box-->
+                    <!--<el-checkbox v-for="category in $store.state.lstCategories" v-bind:label="category.name"-->
+                    <!--@change="cateChange(category._id)" :key="category._id"></el-checkbox>-->
+                </div>
+                <div class="block">
+                    <el-slider
+                            v-model="value9"
+                            range
+                            show-stops
+                            :max="10">
+                    </el-slider>
+                </div>
             </div>
             <div class="row col-md-10 col-sm-12">
                 <div class="a-row">
@@ -13,7 +33,7 @@
                             Tìm thấy <strong>{{totalProduct}}</strong> sản phẩm
                         </div>
                         <div class="col-md-6 text-right">
-                            <el-input placeholder="Please input" v-model="search" class="input-with-select">
+                            <el-input placeholder="Nhập nội dung tìm kiếm" v-model="search" class="input-with-select">
                                 <el-button slot="append" @click="searchProducts(search)"
                                            icon="el-icon-search"></el-button>
                             </el-input>
@@ -21,6 +41,16 @@
                     </div>
                 </div>
                 <product v-for="product in lstProducts" :key="product._id" :product="product"></product>
+                <!--<div class="paging">-->
+                    <!--<el-pagination-->
+                            <!--background-->
+                            <!--layout="prev, pager, next"-->
+                            <!--:page-size="20"-->
+                            <!--:current-page.sync="page"-->
+                            <!--@current-change="handleCurrentChange"-->
+                            <!--:total="total">-->
+                    <!--</el-pagination>-->
+                <!--</div>-->
                 <div class="d-block text-right mt-2 col-md-12">
                     <pagination :currentPage="displayedPage" :totalPost="totalProduct" :count="20"></pagination>
                 </div>
@@ -42,7 +72,8 @@
     data () {
       return {
         search: '',
-        displayedPage: Number(this.$route.params.page) || 1
+        displayedPage: Number(this.$route.params.page) || 1,
+        value9: [0, 0]
       }
     },
     beforeCreate () {
@@ -62,6 +93,13 @@
     methods: {
       async searchProducts (search) {
         return this.$store.dispatch('getProducts', {search: search})
+      },
+      async cateChange (cateId) {
+        return this.$store.dispatch('getProducts', {category: cateId})
+      },
+      async handleCurrentChange (page) {
+        this.page = page
+        this.$store.dispatch('getProducts', {page: page})
       }
     }
   }

@@ -5,13 +5,21 @@ const helper = require('core-helper')
 module.exports = class GetListProductsController extends BaseController {
   getResponse () {
     const pagination = this.getPagination()
-    let filter = this.getQuery(['search'])
+    let filter = this.getQuery(['search', 'category'])
     let query
     if (filter.search) {
       filter.$text = {$search: filter.search}
       delete filter.search
+    } else if (filter.category) {
+      filter = {category: helper.toObjectId(filter.category)}
+    } else if (filter.search && filter.category) {
+      filter = {
+        $text: {$search: filter.search},
+        category: helper.toObjectId(filter.category)
+      }
     }
     let count
+    console.log('filter ', filter)
     query = ProductModel.find(filter)
       .populate('seller')
       .populate('category')

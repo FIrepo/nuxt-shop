@@ -24,6 +24,9 @@ export default () => {
         if (param.search) {
           url += `&search=${param.search}`
         }
+        if (param.category) {
+          url += `&category=${param.category}`
+        }
         const ip = await this.$axios.$get(url)
         commit(types.SET_LIST_PRODUCT, {ip})
       },

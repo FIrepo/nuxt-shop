@@ -10,13 +10,13 @@ const crawler = {
   tiki: {
     category: async function () {
     },
-    product: async function (url = 'https://tiki.vn/laptop-may-vi-tinh/c1846?src=mega-menu&order=newest', category, seller, maxPage = 10) {
+    product: async function (url = 'https://tiki.vn/trang-diem/c1584?src=tree&order=newest', category, seller, maxPage = 10) {
       if (++currentPage <= maxPage) {
         if (url.indexOf('https://tiki.vn') < 0) {
           url = 'https://tiki.vn' + url
         }
-        category = helper.toObjectId('5ab09312c1cbf629f482bc20')
-        seller = helper.toObjectId('5ab0c8724088242f1892b4eb')
+        category = helper.toObjectId('5ab2a527eb78910d54b1a2a0')
+        seller = helper.toObjectId('5ab11de1d0acfe33b467b51e')
         let options = {
           uri: url,
           headers: {
