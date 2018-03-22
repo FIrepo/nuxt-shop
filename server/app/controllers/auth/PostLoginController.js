@@ -14,15 +14,21 @@ module.exports = class PostLoginController extends BaseController {
             if (!result) {
               return Promise.reject('user.wrongPassword')
             }
-            user.accessToken = helper.randomString()
-            return user.save()
-          })
-          .then(user => {
+            console.log('user ', user)
             let response = user.resUserData()
             response.token = user.generateTokenUser()
-            this.req.session.user = response
+            // this.req.session.user = response
             return this.resJSON(response)
+            // user.accessToken = helper.randomString()
+            // return user.save()
           })
+          // .then(user => {
+          //   // console.log('user ', user)
+          //   // let response = user.resUserData()
+          //   // response.token = user.generateTokenUser()
+          //   // // this.req.session.user = response
+          //   // return this.resJSON(response)
+          // })
       })
       .catch((error) => {
         return this.responseError(error)
