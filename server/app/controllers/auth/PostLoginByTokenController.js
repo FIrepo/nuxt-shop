@@ -5,6 +5,7 @@ const helper = require('core-helper')
 
 module.exports = class PostLoginByTokenController extends BaseController {
   getResponse () {
+    // tét push
     let data = this.getBody(['token', 'accessToken'])
     return authLibs.verifyToken(data.token)
       .then(userData => {
